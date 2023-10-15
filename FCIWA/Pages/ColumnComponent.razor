@@ -1,8 +1,8 @@
 <div class="defaultTerminalDiv">
-  @for (int y = 0; y < height; y++)
+  @for (int y = 0; y < thisColumn.columnByElements.GetLength(1); y++)
   {
     <p>
-      @for (int x = 0; x < width; x++)
+      @for (int x = 0; x < thisColumn.columnByElements.GetLength(0); x++)
       {
         <ElementComponent column="@thisColumn" element="@thisColumn.columnByElements[x,y]" OnElementHover="RefreshData" />
       }
@@ -11,18 +11,12 @@
 </div>
 
 @code {
-  Column thisColumn;
-  Element[] castedElements;
-  int width = 12;
-  int height = 16;
-  int wordLength = 6;
-  int wordAmount = 8;
-  int hintAmount = 4;
+  [Parameter]
+  public Column thisColumn { get; set; }
   protected override void OnInitialized()
   {
-    thisColumn = new Column(width, height, wordLength, wordAmount, Constants.GenerateRandomWords(wordAmount,
-    wordLength), hintAmount, 1);
-    castedElements = thisColumn.columnByElements.Cast<Element>().ToArray<Element>();
+    @* thisColumn = new Column(width, height, wordLength, wordAmount, Constants.GenerateRandomWords(wordAmount,
+wordLength), hintAmount, 1); *@
   }
   void RefreshData()
   {

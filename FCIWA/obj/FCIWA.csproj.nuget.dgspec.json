@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj": {}
+    "C:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj": {}
   },
   "projects": {
-    "c:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj": {
+    "C:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj",
+        "projectUniqueName": "C:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj",
         "projectName": "FCIWA",
-        "projectPath": "c:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj",
+        "projectPath": "C:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\FCIWA.csproj",
         "packagesPath": "C:\\Users\\tortoise501\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\obj\\",
+        "outputPath": "C:\\Users\\tortoise501\\Desktop\\FCIWA\\FCIWA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
