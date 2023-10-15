@@ -1,0 +1,31 @@
+<div class="defaultTerminalDiv">
+  @for (int y = 0; y < height; y++)
+  {
+    <p>
+      @for (int x = 0; x < width; x++)
+      {
+        <ElementComponent column="@thisColumn" element="@thisColumn.columnByElements[x,y]" OnElementHover="RefreshData" />
+      }
+    </p>
+  }
+</div>
+
+@code {
+  Column thisColumn;
+  Element[] castedElements;
+  int width = 12;
+  int height = 16;
+  int wordLength = 6;
+  int wordAmount = 8;
+  int hintAmount = 4;
+  protected override void OnInitialized()
+  {
+    thisColumn = new Column(width, height, wordLength, wordAmount, Constants.GenerateRandomWords(wordAmount,
+    wordLength), hintAmount, 1);
+    castedElements = thisColumn.columnByElements.Cast<Element>().ToArray<Element>();
+  }
+  void RefreshData()
+  {
+    StateHasChanged(); // Force component refresh
+  }
+}

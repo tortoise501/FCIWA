@@ -1,0 +1,15 @@
+<label @onmouseover="OnHover" class="@element.currentState">@element.value</label>
+
+@code {
+  [Parameter]
+  public Element element { get; set; }
+  [Parameter]
+  public Column column { get; set; }
+  [Parameter]
+  public EventCallback OnElementHover { get; set; }
+  public void OnHover()
+  {
+    column.SelectElement(element);
+    OnElementHover.InvokeAsync();
+  }
+}

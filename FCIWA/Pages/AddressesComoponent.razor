@@ -1,0 +1,12 @@
+<div class="defaultTerminalDiv">
+  @foreach (string str in attemptObj.addressesColumnData)
+  {
+    <p>@str</p>
+  }
+</div>
+
+
+
+@code {
+  Addresses attemptObj = new Addresses(16, 6);
+}
