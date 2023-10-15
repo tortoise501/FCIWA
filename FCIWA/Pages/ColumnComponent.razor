@@ -1,10 +1,11 @@
-<div class="defaultTerminalDiv">
+<div class="defaultTerminalDiv" @onmouseout="UnselectColumn">
   @for (int y = 0; y < thisColumn.columnByElements.GetLength(1); y++)
   {
     <p>
       @for (int x = 0; x < thisColumn.columnByElements.GetLength(0); x++)
       {
-        <ElementComponent column="@thisColumn" element="@thisColumn.columnByElements[x,y]" OnElementHover="RefreshData" />
+        <ElementComponent column="@thisColumn" element="@thisColumn.columnByElements[x,y]" OnElementHover="RefreshHovered"
+          OnElementClicked="ProccesElementClick" />
       }
     </p>
   }
@@ -13,13 +14,55 @@
 @code {
   [Parameter]
   public Column thisColumn { get; set; }
-  protected override void OnInitialized()
-  {
-    @* thisColumn = new Column(width, height, wordLength, wordAmount, Constants.GenerateRandomWords(wordAmount,
-wordLength), hintAmount, 1); *@
-  }
-  void RefreshData()
+  [Parameter]
+  public GameData Game { get; set; }
+  [Parameter]
+  public EventCallback RefreshGame { get; set; }
+  void RefreshHovered()
   {
     StateHasChanged(); // Force component refresh
+  }
+  void UnselectColumn()
+  {
+    Element[] unselectElements = thisColumn.columnByElements.Cast<Element>().Where(el => el.currentState ==
+    "hoveredElement").ToArray();
+    foreach (Element element in unselectElements)
+    {
+      element.currentState = "unhoveredElement";
+    }
+  }
+  void ProccesElementClick()
+  {
+    Console.WriteLine("processing click event");
+    MasterElement masterElement;
+    Element elementClicked = thisColumn.clickedElement;
+    if (elementClicked is Symbol && (elementClicked as Symbol).belongsToWord != null)
+    {
+      masterElement = (elementClicked as Symbol).belongsToWord;
+      Console.WriteLine("Element is Symbol of a Word");
+    }
+    else if (elementClicked is MasterElement)
+    {
+      masterElement = (elementClicked as MasterElement);
+      Console.WriteLine("Element is Word or Hint");
+    }
+    else
+    {
+      Console.WriteLine("Why");
+      return;
+    }
+
+    if (masterElement is Word)
+    {
+      Console.WriteLine("Element is Word");
+      Game.HandleWordInput(masterElement as Word);
+      RefreshGame.InvokeAsync();
+    }
+    if (masterElement is Hint)
+    {
+      Console.WriteLine("Element is Hint");
+      Game.HandleHintInput(masterElement as Hint);
+      RefreshGame.InvokeAsync();
+    }
   }
 }

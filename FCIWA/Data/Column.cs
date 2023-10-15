@@ -15,26 +15,26 @@ public class Column
   readonly int columnWidth;
   readonly int columnHeight;
   Element selectedElement;
+  public int index;//index in column array
   public void SelectElement(Element element)
   {
     if (selectedElement != null)
     {
       selectedElement.UnSelectElement();
-      unselected += selectedElement.value.ToString();
     }
     element.SelectElement();
     selectedElement = element;
   }
-  public string unselected = "";
-  public Column(int width, int height, int wordLength, int wordAmount, string[] words, int hintAmount = 4, int resetAttemptsHintAmount = 0)
+  public Column(int index, int width, int height, int wordLength, int wordAmount, string[] words, int hintAmount = 4, int resetAttemptsHintAmount = 0)
   {
+    this.index = index;
     columnWidth = width;
     columnHeight = height;
     columnByElements = GenerateColumn(words, columnWidth, columnHeight, wordLength, wordAmount);
     GenerateHintData(columnWidth, hintAmount, resetAttemptsHintAmount);
     PlaceRandomSymbols();
   }
-  public int ok = 2;
+  public Element clickedElement { get; set; }
 
 
 

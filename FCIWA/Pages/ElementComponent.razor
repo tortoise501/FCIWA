@@ -1,4 +1,4 @@
-<label @onmouseover="OnHover" class="@element.currentState">@element.value</label>
+<label @onmouseover="OnHover" @onclick="ElementClicked" class="@element.currentState">@element.value</label>
 
 @code {
   [Parameter]
@@ -7,9 +7,17 @@
   public Column column { get; set; }
   [Parameter]
   public EventCallback OnElementHover { get; set; }
+  [Parameter]
+  public EventCallback OnElementClicked { get; set; }
   public void OnHover()
   {
     column.SelectElement(element);
     OnElementHover.InvokeAsync();
+  }
+  public void ElementClicked()
+  {
+    Console.WriteLine("clicked");
+    column.clickedElement = element;
+    OnElementClicked.InvokeAsync();
   }
 }
