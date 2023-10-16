@@ -1,5 +1,11 @@
 <div class="gameRoot">
   <div class="game">
+    @if (isGameFinished)
+    {
+      <div class="gameOverScreen">
+        <p class="gameOverText">Game Over, You @(Game.gameState == GameState.Won ? "won" : "lost")</p>
+      </div>
+    }
     <AttemptsComoponent attempts="@attempts" />
     <div class="inlineDiv defaultTerminalText">
       @for (int i = 0; i < columns.Length; i++)
@@ -13,6 +19,24 @@
 </div>
 
 <style>
+  .gameOverScreen {
+    position: absolute;
+    width: var(--screen-width);
+    height: var(--screen-height);
+    background-color: rgba(255, 255, 255, 0.388);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gameOverText {
+    font-size: calc(var(--font-size) * 2.5);
+    color: green;
+    font-family: monospace;
+    text-shadow: 2px 2px black;
+  }
+
   .gameRoot {
     --box-width: 90vw;
     --box-heigth: 90vh;
@@ -56,11 +80,12 @@
     background-color: black;
     outline-color: green;
     outline-style: solid;
-    outline-width: 10px;
+    outline-width: 4px;
     margin: auto;
     font-size: var(--font-size);
     width: var(--screen-width);
     height: var(--screen-height);
+    padding: 10px;
   }
 
   .defaultTerminalDiv {
@@ -95,7 +120,9 @@
     @* Console.WriteLine("My debug output."); *@
     string[] RandomWordArray = Constants.GenerateRandomWords(wordAmount * columnAmount, wordLength);
     Console.WriteLine($"word count = {RandomWordArray.Length}.");
-    Game.correctWord = RandomWordArray[Constants.rnd.Next(0, RandomWordArray.Length)];
+    string correctWord = RandomWordArray[Constants.rnd.Next(0, RandomWordArray.Length)];
+    Console.WriteLine($"Correct Word {correctWord}");
+    Game.correctWord = correctWord;
     List<string[]> words = new List<string[]>();
     for (int i = 0; i < columnAmount; i++)
     {
@@ -116,6 +143,18 @@
     Console.WriteLine(Game.cashedElement);
     Console.WriteLine(Game.cashedExecutionCode);
     Console.WriteLine(attempts.attemptsLeft);
+    if (Game.gameState != GameState.InProgress)
+    {
+      FinnishGame();
+    }
+    StateHasChanged();
+  }
+  bool isGameFinished = false;
+  public async void FinnishGame()
+  {
+    Console.WriteLine("Not Yet Implemented FinnishGame()");
+    await Task.Delay(2000);
+    isGameFinished = true;
     StateHasChanged();
   }
 

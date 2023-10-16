@@ -19,32 +19,13 @@
   user-select: none;
 }
 
-/* .defaultTerminalDiv {
-  line-height: 0.2;
-  padding: 5px;
-  padding-right: var(--adaptive-padding-size);
-  padding-right: var(--padding);
-} */
-
 .noMargin {
   margin-right: 0px !important;
 }
 
-/* .game {
-  background-color: black;
-  outline-color: green;
-  outline-style: solid;
-  outline-width: 10px;
-  margin: auto;
-  --game-width: 50vw;
-  --game-height: 50vw;
-  --number-of-symbols: 60;
-  width: var(--game-width);
-  height: var(--game-height);
-  --adaptive-font-size: calc((var(--game-width)/(var(--number-of-symbols))*2));
-  --adaptive-padding-size: calc(var(--adaptive-font-size) / 2);
-  font-size: calc(var(--adaptive-font-size));
-} */
+body {
+  background-color: gray;
+}
 
 .container {
   position: relative;

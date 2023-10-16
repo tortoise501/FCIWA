@@ -9,15 +9,24 @@
   public EventCallback OnElementHover { get; set; }
   [Parameter]
   public EventCallback OnElementClicked { get; set; }
+  [Parameter]
+  public GameData Game { get; set; }
+
   public void OnHover()
   {
-    column.SelectElement(element);
-    OnElementHover.InvokeAsync();
+    if (Game.gameState == GameState.InProgress)
+    {
+      column.SelectElement(element);
+      OnElementHover.InvokeAsync();
+    }
   }
   public void ElementClicked()
   {
     Console.WriteLine("clicked");
-    column.clickedElement = element;
-    OnElementClicked.InvokeAsync();
+    if (Game.gameState == GameState.InProgress)
+    {
+      column.clickedElement = element;
+      OnElementClicked.InvokeAsync();
+    }
   }
 }

@@ -22,7 +22,7 @@ public class GameData
     ExecuteCashedData();
   }
 
-  public void HandleHintInput(Hint hint)
+  public void HandleHintInput(Hint hint, Column col)
   {
     if (hint.hintType == HintType.Dud)
     {
@@ -33,25 +33,29 @@ public class GameData
       cashedExecutionCode = ExecutionCode.HintLife;
     }
     cashedElement = hint;
+    cashedColumn = col;
     ExecuteCashedData();
   }
 
   public ExecutionCode cashedExecutionCode = ExecutionCode.WrongInput;
   public Element? cashedElement = null;
-  bool isGameLost = false;
-  bool isGameWon = false;
+  public Column? cashedColumn = null;
+  public GameState gameState = GameState.InProgress;
   public void ExecuteCashedData()
   {
     switch (cashedExecutionCode)
     {
       case ExecutionCode.Mistake:
         {
-          isGameLost = attempts.LooseAttemptAndCheckForLoose();
+          if (attempts.LooseAttemptAndCheckForLoose())
+          {
+            gameState = GameState.Lost;
+          }
           break;
         }
       case ExecutionCode.CorrectWord:
         {
-          isGameWon = true;
+          gameState = GameState.Won;
           break;
         }
       case ExecutionCode.HintDuds:
@@ -64,11 +68,13 @@ public class GameData
           }
           int randomIndex = rnd.Next(0, columnsToRemoveDuds.Length);
           columnsToRemoveDuds[randomIndex].RemoveDud(correctWord);
+          cashedColumn.RemoveHint(cashedElement.coordinates);
           break;
         }
       case ExecutionCode.HintLife:
         {
           attempts.ResetAttempts();
+          cashedColumn.RemoveHint(cashedElement.coordinates);
           break;
         }
     }
