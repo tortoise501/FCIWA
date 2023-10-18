@@ -13,7 +13,7 @@
         <AddressesComoponent />
         <ColumnComponent Game="@Game" thisColumn="@columns[i]" RefreshGame="RefreshGame" />
       }
-      <LoggerComponent />
+      <LoggerComponent logger="@logger" />
     </div>
   </div>
 </div>
@@ -135,7 +135,7 @@
     }
     Game.columns = columns;
     Game.attempts = attempts;
-    //Game.logger = logger
+    Game.logger = logger;
   }
   public void RefreshGame()
   {
@@ -160,4 +160,5 @@
 
   Column[] columns = new Column[columnAmount];
   Attempts attempts = new Attempts(maxAttempts);
+  GameLogger logger = new GameLogger(16);
 }

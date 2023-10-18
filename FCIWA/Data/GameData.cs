@@ -2,6 +2,7 @@ public class GameData
 {
   public Column[] columns;
   public Attempts attempts;
+  public GameLogger logger;
   public string correctWord = "";
   //public Logger
   public void HandleWordInput(Word word)
@@ -9,14 +10,17 @@ public class GameData
     if (word.word == correctWord)
     {
       cashedExecutionCode = ExecutionCode.CorrectWord;
+      logger.AddGameLogs(">correct word");
     }
     else if (word.word.Length == correctWord.Length)
     {
       cashedExecutionCode = ExecutionCode.Mistake;
+      logger.AddGameLogs(">mistake");
     }
     else
     {
       cashedExecutionCode = ExecutionCode.WrongInput;
+      logger.AddGameLogs("wrong input");
     }
     cashedElement = word;
     ExecuteCashedData();
@@ -27,10 +31,12 @@ public class GameData
     if (hint.hintType == HintType.Dud)
     {
       cashedExecutionCode = ExecutionCode.HintDuds;
+      logger.AddGameLogs("removed dud");
     }
     else
     {
       cashedExecutionCode = ExecutionCode.HintLife;
+      logger.AddGameLogs("reset attempts");
     }
     cashedElement = hint;
     cashedColumn = col;
