@@ -13,10 +13,6 @@ public class MasterElement : Element
   }
   public void AddSlaveElement(Element element)
   {
-    if (element is Word && this is Word)
-    {
-      throw new Exception("okPonException");
-    }
     slaveElements.Add(element);
     element.elementType = elementType == ElementType.Word ? ElementType.Word : element.elementType;
     length++;

@@ -1,6 +1,6 @@
 public class Symbol : Element
 {
-  public Word? belongsToWord { get; private set; }
+  public MasterElement? belongsToWord { get; private set; }
   public Symbol(char value, Coordinates coordinates, Word? masterElement = null) : base(value, coordinates)
   {
     this.belongsToWord = masterElement;
@@ -8,7 +8,7 @@ public class Symbol : Element
   }
   public override void SelectElement()
   {
-    if (belongsToWord != null)
+    if (belongsToWord != null && belongsToWord is Word)
     {
       belongsToWord.SelectElement();
     }
@@ -19,7 +19,7 @@ public class Symbol : Element
   }
   public override void UnSelectElement()
   {
-    if (belongsToWord != null)
+    if (belongsToWord != null && belongsToWord is Word)
     {
       belongsToWord.UnSelectElement();
     }

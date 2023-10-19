@@ -53,74 +53,6 @@ public class Column
   }
 
 
-  // public ExecutionCode CheckInput()
-  // {
-  //   // int selectedIndex = posToElement[selectorPos];
-  //   // string selectedItem = columnByElements[selectedIndex];
-  //   Element selectedElement = columnByElements[selectorPos];
-  //   if (selectedElement.elementType == ElementType.Word)//is this right word//selectedElement.GetType() == typeof(Word) && ((Word)selectedElement).word == rightWord
-  //   {
-  //     string word = selectedElement.GetType() == typeof(Word) ? ((Word)selectedElement).word : ((Symbol)selectedElement).belongsToWord.word;//.((Word)masterElement).word;
-  //     if (word == rightWord)//is it a wrong word
-  //     {
-  //       return ExecutionCode.CorrectWord;
-  //     }
-  //     else
-  //     {
-  //       return ExecutionCode.Mistake;
-  //     }
-  //   }
-  //   if (selectedElement.elementType == ElementType.Hint)//is this a hint
-  //   {
-  //     if (((Hint)selectedElement).hintType == HintType.Dud)
-  //     {
-  //       return ExecutionCode.HintDuds;
-  //     }
-  //     else
-  //     {
-  //       return ExecutionCode.HintLife;
-  //     }
-  //   }
-  //   else//then it is a symbol
-  //   {
-  //     return ExecutionCode.WrongInput;
-  //   }
-  // }
-
-
-  // public string GenerateLog(ExecutionCode executionCode, int selectedPos)
-  // {
-  //   return "Logs are temporary disabled";
-  //   // string el = columnByElements[posToElement[selectedPos]];
-  //   // string res = "";
-  //   // if (executionCode == ExecutionCode.Mistake)
-  //   // {
-  //   //   if (rightWord == null)
-  //   //     throw new NullReferenceException();
-  //   //   res = $">{el}\n>Entry Denied\n>Likeness={CheckForLikeness(el, rightWord)}";
-  //   // }
-  //   // if (executionCode == ExecutionCode.CorrectWord)
-  //   // {
-  //   //   res = $">{el}\n>Exact match\n>Please Wait\n>while system\n>is accepted";
-  //   // }
-  //   // if (executionCode == ExecutionCode.HintDuds)
-  //   // {
-  //   //   char[] hint = GetCharsOf(posToElement[selectedPos], indexToHintPos[posToElement[selectedPos]]).ToArray();
-  //   //   res = $">{string.Join("", hint)}\n>Dud removed";
-  //   // }
-  //   // if (executionCode == ExecutionCode.HintLife)
-  //   // {
-  //   //   res = $"ATTEMPTS RESTORED";
-  //   // }
-  //   // if (executionCode == ExecutionCode.HintLife || executionCode == ExecutionCode.HintDuds)
-  //   // {
-  //   //   indexToHintPos.Remove(posToElement[selectedPos]);
-  //   //   indexToHintType.Remove(posToElement[selectedPos]);
-  //   // }
-  //   // return res;
-  // }
-
-
   public void RemoveHint(Coordinates coordinates)
   {
     if (columnByElements[coordinates.x, coordinates.y] is Hint)
@@ -225,6 +157,7 @@ public class Column
     int spawnedHints = 0;
     for (int y = 0; y < columnHeight && spawnedHints < hintAmount; y++)
     {
+      List<Hint> SpawnedHintsList = new List<Hint>();//for adding hints as slaves to existing hints
       for (int x = 0; x < columnWidth && spawnedHints < hintAmount; x++)
       {
         Element el = columnByElements[x, y];
@@ -260,12 +193,23 @@ public class Column
           if (columnByElements[endingPos, y].value == ' ')
           {
             char randomPar = Constants.Parentheses[rnd.Next(0, Constants.Parentheses.Length)];
+            Element hintOrigin = columnByElements[x, y];
             columnByElements[x, y] = new Hint(Constants.GetOppositeParentheses[randomPar], new Coordinates(x, y), resetAttemptHintsOrder.Contains(hintNumber) ? HintType.Attempt : HintType.Dud);
+            if (SpawnedHintsList.Count(el => el.slaveElements.Contains(hintOrigin)) > 0)
+            {
+              Console.WriteLine("Debug 1");
+              foreach (Hint adToHint in SpawnedHintsList.Where(el => el.slaveElements.Contains(hintOrigin)))
+              {
+                Console.WriteLine("Debug 2");
+                adToHint.slaveElements[adToHint.slaveElements.IndexOf(hintOrigin)] = columnByElements[x, y];
+              }
+            }
+            SpawnedHintsList.Add(columnByElements[x, y] as Hint);
             for (int c = x + 1; c < endingPos; c++)
             {
               ((MasterElement)columnByElements[x, y]).AddSlaveElement(columnByElements[c, y]);
             }
-            columnByElements[endingPos, y] = new Symbol(randomPar, new Coordinates(endingPos, y));//.value = randomPar;
+            columnByElements[endingPos, y].value = randomPar;
             ((MasterElement)columnByElements[x, y]).AddSlaveElement(columnByElements[endingPos, y]);
           }
           else
