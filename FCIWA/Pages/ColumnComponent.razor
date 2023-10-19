@@ -18,9 +18,15 @@
   public GameData Game { get; set; }
   [Parameter]
   public EventCallback RefreshGame { get; set; }
+  [Parameter]
+  public EventCallback ChangedSelectedElement { get; set; }
   void RefreshHovered()
   {
     StateHasChanged(); // Force component refresh
+    Game.logger.SetSelectedElement(thisColumn.selectedElement is Symbol && (thisColumn.selectedElement as
+    Symbol).belongsToWord != null ? (thisColumn.selectedElement as Symbol).belongsToWord.ToString() :
+    thisColumn.selectedElement.ToString());
+    ChangedSelectedElement.InvokeAsync();
   }
   void UnselectColumn()
   {

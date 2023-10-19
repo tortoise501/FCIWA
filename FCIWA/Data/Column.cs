@@ -14,7 +14,7 @@ public class Column
   public Element[,] columnByElements { get; private set; } = new Element[0, 0];
   readonly int columnWidth;
   readonly int columnHeight;
-  Element selectedElement;
+  public Element selectedElement { get; private set; }
   public int index;//index in column array
   public void SelectElement(Element element)
   {

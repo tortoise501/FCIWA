@@ -1,17 +1,21 @@
 <div class="noMargin defaultTerminalDiv defaultTerminalText">
   @for (int i = 0; i < logger.maxLength - logger.Logs.Count() - 2; i++)
   {
-    <br>
+    <p>&nbsp;</p>
   }
   @foreach (string log in logger.Logs)
   {
     <p>@log</p>
   }
-  <br>
+  <p>&nbsp;</p>
   <p>@logger.selectedElement</p>
 </div>
 
 @code {
   [Parameter]
   public GameLogger logger { get; set; }
+  public void RefreshLogger()
+  {
+    StateHasChanged();
+  }
 }
