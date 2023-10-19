@@ -2,6 +2,7 @@ public class GameData
 {
   public Column[] columns;
   public Attempts attempts;
+  public GameLogger logger;
   public string correctWord = "";
   //public Logger
   public void HandleWordInput(Word word)
@@ -9,17 +10,37 @@ public class GameData
     if (word.word == correctWord)
     {
       cashedExecutionCode = ExecutionCode.CorrectWord;
+      logger.AddGameLogs($">{word}");
+      logger.AddGameLogs(">Password Accepted.");
     }
     else if (word.word.Length == correctWord.Length)
     {
       cashedExecutionCode = ExecutionCode.Mistake;
+      logger.AddGameLogs($">{word}");
+      logger.AddGameLogs(">Entry denied.");
+      logger.AddGameLogs($">Likeness={Likeness(word.word)}");
     }
     else
     {
       cashedExecutionCode = ExecutionCode.WrongInput;
+      logger.AddGameLogs($">{word}");
+      logger.AddGameLogs(">Error");
     }
     cashedElement = word;
     ExecuteCashedData();
+  }
+
+  public int Likeness(string word)
+  {
+    int res = 0;
+    for (int i = 0; i < word.Length; i++)
+    {
+      if (word[i] == correctWord[i])
+      {
+        res++;
+      }
+    }
+    return res;
   }
 
   public void HandleHintInput(Hint hint, Column col)
@@ -27,10 +48,14 @@ public class GameData
     if (hint.hintType == HintType.Dud)
     {
       cashedExecutionCode = ExecutionCode.HintDuds;
+      logger.AddGameLogs($">{hint}");
+      logger.AddGameLogs(">Dud Removed.");
     }
     else
     {
       cashedExecutionCode = ExecutionCode.HintLife;
+      logger.AddGameLogs($">{hint}");
+      logger.AddGameLogs(">Tries Reset.");
     }
     cashedElement = hint;
     cashedColumn = col;

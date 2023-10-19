@@ -11,9 +11,10 @@
       @for (int i = 0; i < columns.Length; i++)
       {
         <AddressesComoponent />
-        <ColumnComponent Game="@Game" thisColumn="@columns[i]" RefreshGame="RefreshGame" />
+        <ColumnComponent Game="@Game" thisColumn="@columns[i]" RefreshGame="RefreshGame"
+          ChangedSelectedElement="RefreshLogger" />
       }
-      <LoggerComponent />
+      <LoggerComponent logger="@logger" @ref="loggerComponent" />
     </div>
   </div>
 </div>
@@ -113,7 +114,7 @@
   const int addressWidth = 6;
   const int addressHeight = commonHeight;
   //logger
-  const int loggerWidth = 15;
+  const int loggerWidth = 20;
   public GameData Game = new GameData();
   protected override void OnInitialized()
   {
@@ -135,7 +136,7 @@
     }
     Game.columns = columns;
     Game.attempts = attempts;
-    //Game.logger = logger
+    Game.logger = logger;
   }
   public void RefreshGame()
   {
@@ -160,4 +161,10 @@
 
   Column[] columns = new Column[columnAmount];
   Attempts attempts = new Attempts(maxAttempts);
+  GameLogger logger = new GameLogger(16);
+  public void RefreshLogger()
+  {
+    loggerComponent.RefreshLogger();
+  }
+  public LoggerComponent loggerComponent;
 }
