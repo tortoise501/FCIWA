@@ -1,11 +1,53 @@
-<div class="grid-container inner-grid-container">
-  @foreach (IGameCell cell in (SmallGrid as IGameGrid).Cells)
+<div class="@defaultClass">
+  @switch ((SmallGrid as IGameCell).State)
   {
-    <CellComponent Cell="@(cell as GameCell)" />
+    case Cell.None:
+      {
+        foreach (IGameCell cell in (SmallGrid as IGameGrid).Cells)
+        {
+          <CellComponent thisGameCell="@(cell as GameCell)" OnClick="@ReloadOnClick" />
+        }
+        break;
+      }
+    case Cell.X:
+      {
+        <img class="cellImg" src="Images/TicTacToe/xSprite.png" alt="X">
+        break;
+      }
+    case Cell.O:
+      {
+        <img class="cellImg" src="Images/TicTacToe/oSprite.png" alt="O">
+        break;
+      }
+    case Cell.Tie:
+      {
+        <img class="cellImg" src="Images/TicTacToe/tieSprite.png" alt="O">
+        break;
+      }
   }
 </div>
 
 @code {
   [Parameter]
   public SmallGame SmallGrid { get; set; }
+
+  string defaultClass = "grid-container inner-grid-container";
+  string additionalClasses = " imgDiv";
+  public void ReloadOnClick()
+  {
+    (SmallGrid as IGameCell).OccupySelf((SmallGrid as IGameGrid).ValidateGrid());
+    if ((SmallGrid as IGameCell).State == Cell.None)
+    {
+      if ((SmallGrid as IGameGrid).Cells.Count(cell => cell.State == Cell.None) == 0)
+      {
+        (SmallGrid as IGameCell).OccupySelf(Cell.Tie);
+        defaultClass += additionalClasses;
+      }
+    }
+    else
+    {
+      defaultClass += additionalClasses;
+    }
+    StateHasChanged();
+  }
 }

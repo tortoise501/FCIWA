@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public interface IGameGrid
 {
   public IGameCell[] Cells { get; protected set; }
@@ -11,16 +13,27 @@ public interface IGameGrid
     {
       Triples[i] = new IGameCell[3];
     }
-    for (int i = 0; i < 3; i++)
+    for (int x = 0; x < 3; x++)
     {
-      for (int j = 0; j < 3; j++)
+      for (int y = 0; y < 3; y++)
       {
-        Triples[i][j] = Cells[(i * 3) + j];//adding horizontal lines
-        Triples[i][j] = Cells[i + (j * 3)];//adding vertical lines
+        Triples[x][y] = Cells[(x * 3) + y];//adding horizontal lines
+        Triples[x + 3][y] = Cells[x + (y * 3)];//adding vertical lines
       }
-      Triples[6][i] = Cells[i * 4];//top-left to bottom-right line
-      Triples[7][i] = Cells[(i + 1) * 2];//top-right to bottom-left line
+      Triples[6][x] = Cells[x * 4];//top-left to bottom-right line
+      Triples[7][x] = Cells[(x + 1) * 2];//top-right to bottom-left line
     }
+    string ex = "\n";
+    foreach (IGameCell[] line in Triples)
+    {
+      foreach (IGameCell c in line)
+      {
+        ex += c.State == Cell.X ? "X" : c.State == Cell.O ? "O" : c.State == Cell.None ? "N" : "E";
+      }
+      ex += "\n";
+    }
+    // throw new Exception(ex);
+    Debug.WriteLine(ex);
   }
   public void OccupyOnIndex(int i, Cell state)
   {
@@ -29,12 +42,37 @@ public interface IGameGrid
   }
   public Cell ValidateGrid()
   {
-    foreach (IGameCell[] line in Triples)
+    try
     {
-      if (line.All(cell => cell.State == line[0].State))
+      foreach (IGameCell[] line in Triples)
       {
-        return line[0].State;
+        if (line.All(cell => cell.State == line[0].State) && line[0].State != Cell.None)
+        {
+          return line[0].State;
+        }
       }
+      string ex = "\n";
+      foreach (IGameCell[] line in Triples)
+      {
+        foreach (IGameCell c in line)
+        {
+          ex += c.State == Cell.X ? "X" : c.State == Cell.O ? "O" : c.State == Cell.None ? "N" : "E";
+        }
+        ex += "\n";
+      }
+    }
+    catch (Exception e)//Idk but it fixed the problem
+    {
+      string ex = "\n";
+      foreach (IGameCell[] line in Triples)
+      {
+        foreach (IGameCell c in line)
+        {
+          ex += c.State == Cell.X ? "X" : c.State == Cell.O ? "O" : c.State == Cell.None ? "N" : "E";
+        }
+        ex += "\n";
+      }
+      throw new Exception(e.Message + ex);
     }
     return Cell.None;
   }

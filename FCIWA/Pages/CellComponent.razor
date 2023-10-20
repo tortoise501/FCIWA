@@ -1,23 +1,35 @@
-<div class="grid-item imgDiv">
-  <img class="cellImg" src="Images/TicTacToe/xSprite.png" alt="O">
+<div class="grid-item imgDiv" @onclick="Clicked">
+  @switch ((thisGameCell as IGameCell).State)
+  {
+    case Cell.X:
+      {
+        <img class="cellImg" src="Images/TicTacToe/xSprite.png" alt="X">
+        break;
+      }
+    case Cell.O:
+      {
+        <img class="cellImg" src="Images/TicTacToe/oSprite.png" alt="O">
+        break;
+      }
+    case Cell.None:
+      {
+        break;
+      }
+  }
 </div>
-<style>
-  .cellImg {
-    width: 75%;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
-
-  .imgDiv {
-    justify-content: center;
-    position: relative;
-  }
-</style>
 @code {
   [Parameter]
-  public GameCell Cell { get; set; }
+  public GameCell thisGameCell { get; set; }
+  [Parameter]
+  public EventCallback OnClick { get; set; }
+
+  void Clicked()
+  {
+    if ((thisGameCell as IGameCell).State != Cell.None)
+    {
+      return;
+    }
+  (thisGameCell as IGameCell).OccupySelf(TTTGameManager.GetPlayerAndMove());
+    OnClick.InvokeAsync();
+  }
 }
