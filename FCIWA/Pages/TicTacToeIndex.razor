@@ -1,0 +1,52 @@
+@page "/TicTacToe"
+<div class="grid-container">
+  @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
+  {
+    <SmallGameComponent SmallGrid="@(cell as SmallGame)" />
+    @* <p>ok</p> *@
+  }
+</div>
+<style>
+  .grid-container {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: black;
+    gap: 10px;
+    user-select: none;
+  }
+
+  .inner-grid-container {
+    background-color: black;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-item {
+    background-color: white;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+@code {
+  SuperGameGrid SuperGrid;
+  protected override void OnInitialized()
+  {
+    SmallGame[] smallGames = new SmallGame[9];
+    for (int i = 0; i < smallGames.Length; i++)
+    {
+      GameCell[] cells = new GameCell[9];
+      for (int j = 0; j < smallGames.Length; j++)
+      {
+        cells[j] = new GameCell();
+      }
+      smallGames[i] = new SmallGame(cells);
+    }
+    SuperGrid = new SuperGameGrid(smallGames);
+  }
+}

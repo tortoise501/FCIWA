@@ -1,0 +1,11 @@
+<div class="grid-container inner-grid-container">
+  @foreach (IGameCell cell in (SmallGrid as IGameGrid).Cells)
+  {
+    <CellComponent Cell="@(cell as GameCell)" />
+  }
+</div>
+
+@code {
+  [Parameter]
+  public SmallGame SmallGrid { get; set; }
+}
