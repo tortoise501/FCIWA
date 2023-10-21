@@ -5,7 +5,14 @@
       {
         foreach (IGameCell cell in (SmallGrid as IGameGrid).Cells)
         {
-          <CellComponent thisGameCell="@(cell as GameCell)" OnClick="@ReloadOnClick" />
+          <CellComponent thisGameCell="@(cell as GameCell)" OnClick="@ReloadOnClick" SmallGameIndex="@SmallGameIndex"
+            CellIndex="@i" />
+          Console.WriteLine(i);
+          i++;
+        }
+        @if (i != 0)
+        {
+          i = 0;
         }
         break;
       }
@@ -28,8 +35,11 @@
 </div>
 
 @code {
+  int i = 0;
   [Parameter]
   public SmallGame SmallGrid { get; set; }
+  [Parameter]
+  public int SmallGameIndex { get; set; }
 
   string defaultClass = "grid-container inner-grid-container";
   string additionalClasses = " imgDiv";

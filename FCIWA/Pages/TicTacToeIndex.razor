@@ -2,8 +2,13 @@
 <div class="grid-container">
   @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
   {
-    <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" />
+    <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
+    i++;
     @* <p>ok</p> *@
+  }
+  @if (i != 0)
+  {
+    i = 0;
   }
 </div>
 <style>
@@ -50,6 +55,7 @@
 </style>
 
 @code {
+  int i = 0;
   SuperGameGrid SuperGrid;
   Cell WonBy = Cell.None;
   protected override void OnInitialized()

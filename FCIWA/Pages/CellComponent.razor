@@ -22,14 +22,27 @@
   public GameCell thisGameCell { get; set; }
   [Parameter]
   public EventCallback OnClick { get; set; }
+  [Parameter]
+  public int SmallGameIndex { get; set; }
+  [Parameter]
+  public int CellIndex { get; set; }
 
   void Clicked()
   {
+    Console.WriteLine($"cellIndex={CellIndex}, SmallGameIndex={SmallGameIndex}, TTT={TTTGameManager.CurrentSmallGame}");
     if ((thisGameCell as IGameCell).State != Cell.None)
     {
       return;
     }
-  (thisGameCell as IGameCell).OccupySelf(TTTGameManager.GetPlayerAndMove());
+    if ((SmallGameIndex != TTTGameManager.CurrentSmallGame &&
+    TTTGameManager.CurrentSmallGame != -1))
+    {
+      return;
+    }
+    TTTGameManager.CurrentSmallGame = CellIndex;
+    (thisGameCell as IGameCell).OccupySelf(TTTGameManager.GetPlayerAndMove());
     OnClick.InvokeAsync();
+    Console.WriteLine("==>");
+    Console.WriteLine($"cellIndex={CellIndex}, SmallGameIndex={SmallGameIndex}, TTT={TTTGameManager.CurrentSmallGame}");
   }
 }
