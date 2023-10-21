@@ -2,7 +2,7 @@
 <div class="grid-container">
   @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
   {
-    <SmallGameComponent SmallGrid="@(cell as SmallGame)" />
+    <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" />
     @* <p>ok</p> *@
   }
 </div>
@@ -51,8 +51,10 @@
 
 @code {
   SuperGameGrid SuperGrid;
+  Cell WonBy = Cell.None;
   protected override void OnInitialized()
   {
+    Console.WriteLine("test");
     SmallGame[] smallGames = new SmallGame[9];
     for (int i = 0; i < smallGames.Length; i++)
     {
@@ -64,5 +66,14 @@
       smallGames[i] = new SmallGame(cells);
     }
     SuperGrid = new SuperGameGrid(smallGames);
+  }
+  public void ReloadOnWinning()
+  {
+    Cell Winner = (SuperGrid as IGameGrid).ValidateGrid();
+    Console.WriteLine($"validating");
+    if (Winner != Cell.None)
+    {
+      Console.WriteLine($"{Winner} won");
+    }
   }
 }

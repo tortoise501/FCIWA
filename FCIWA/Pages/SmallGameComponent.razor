@@ -33,6 +33,8 @@
 
   string defaultClass = "grid-container inner-grid-container";
   string additionalClasses = " imgDiv";
+  [Parameter]
+  public EventCallback OnPlayerWinning { get; set; }
   public void ReloadOnClick()
   {
     (SmallGrid as IGameCell).OccupySelf((SmallGrid as IGameGrid).ValidateGrid());
@@ -42,11 +44,15 @@
       {
         (SmallGrid as IGameCell).OccupySelf(Cell.Tie);
         defaultClass += additionalClasses;
+        Console.WriteLine("yes");
+        OnPlayerWinning.InvokeAsync();
       }
     }
     else
     {
       defaultClass += additionalClasses;
+      Console.WriteLine("yes");
+      OnPlayerWinning.InvokeAsync();
     }
     StateHasChanged();
   }
