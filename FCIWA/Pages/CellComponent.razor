@@ -1,0 +1,48 @@
+<div class="grid-item imgDiv" @onclick="Clicked">
+  @switch ((thisGameCell as IGameCell).State)
+  {
+    case Cell.X:
+      {
+        <img class="cellImg" src="Images/TicTacToe/xSprite.png" alt="X">
+        break;
+      }
+    case Cell.O:
+      {
+        <img class="cellImg" src="Images/TicTacToe/oSprite.png" alt="O">
+        break;
+      }
+    case Cell.None:
+      {
+        break;
+      }
+  }
+</div>
+@code {
+  [Parameter]
+  public GameCell thisGameCell { get; set; }
+  [Parameter]
+  public EventCallback OnClick { get; set; }
+  [Parameter]
+  public int SmallGameIndex { get; set; }
+  [Parameter]
+  public int CellIndex { get; set; }
+
+  void Clicked()
+  {
+    Console.WriteLine($"cellIndex={CellIndex}, SmallGameIndex={SmallGameIndex}, TTT={TTTGameManager.CurrentSmallGame}");
+    if ((thisGameCell as IGameCell).State != Cell.None)
+    {
+      return;
+    }
+    if ((SmallGameIndex != TTTGameManager.CurrentSmallGame &&
+    TTTGameManager.CurrentSmallGame != -1))
+    {
+      return;
+    }
+    TTTGameManager.CurrentSmallGame = CellIndex;
+    (thisGameCell as IGameCell).OccupySelf(TTTGameManager.GetPlayerAndMove());
+    OnClick.InvokeAsync();
+    Console.WriteLine("==>");
+    Console.WriteLine($"cellIndex={CellIndex}, SmallGameIndex={SmallGameIndex}, TTT={TTTGameManager.CurrentSmallGame}");
+  }
+}

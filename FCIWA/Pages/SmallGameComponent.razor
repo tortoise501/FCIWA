@@ -1,0 +1,72 @@
+<div class="@defaultClass">
+  @switch ((SmallGrid as IGameCell).State)
+  {
+    case Cell.None:
+      {
+        foreach (IGameCell cell in (SmallGrid as IGameGrid).Cells)
+        {
+          <CellComponent thisGameCell="@(cell as GameCell)" OnClick="@ReloadOnClick" SmallGameIndex="@SmallGameIndex"
+            CellIndex="@i" />
+          Console.WriteLine(i);
+          i++;
+        }
+        @if (i != 0)
+        {
+          i = 0;
+        }
+        break;
+      }
+    case Cell.X:
+      {
+        <img class="cellImg" src="Images/TicTacToe/xSprite.png" alt="X">
+        break;
+      }
+    case Cell.O:
+      {
+        <img class="cellImg" src="Images/TicTacToe/oSprite.png" alt="O">
+        break;
+      }
+    case Cell.Tie:
+      {
+        <img class="cellImg" src="Images/TicTacToe/tieSprite.png" alt="O">
+        break;
+      }
+  }
+</div>
+
+@code {
+  int i = 0;
+  [Parameter]
+  public SmallGame SmallGrid { get; set; }
+  [Parameter]
+  public int SmallGameIndex { get; set; }
+
+  string defaultClass = "grid-container inner-grid-container";
+  string additionalClasses = " imgDiv";
+  [Parameter]
+  public EventCallback OnPlayerWinning { get; set; }
+  public void ReloadOnClick()
+  {
+    (SmallGrid as IGameCell).OccupySelf((SmallGrid as IGameGrid).ValidateGrid());
+    if ((SmallGrid as IGameCell).State == Cell.None)
+    {
+      if ((SmallGrid as IGameGrid).Cells.Count(cell => cell.State == Cell.None) == 0)
+      {
+        (SmallGrid as IGameCell).OccupySelf(Cell.Tie);
+        FinishWithWinner();
+      }
+    }
+    else
+    {
+      FinishWithWinner();
+    }
+    StateHasChanged();
+  }
+  void FinishWithWinner()
+  {
+    TTTGameManager.filledSmallGames.Add(SmallGameIndex);
+    defaultClass += additionalClasses;
+    Console.WriteLine("yes");
+    OnPlayerWinning.InvokeAsync();
+  }
+}
