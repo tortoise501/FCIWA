@@ -1,19 +1,82 @@
 @page "/TicTacToe"
-<div class="grid-container">
-  @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
+<div>
+  @if (WonBy != Cell.None)
   {
-    <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
-    i++;
-    @* <p>ok</p> *@
+    switch (WonBy)
+    {
+      case Cell.X:
+        {
+          <div class="gameOverScreen">
+            <p class="gameOverText XText">Game Over X won</p>
+          </div>
+          break;
+        }
+      case Cell.O:
+        {
+          <div class="gameOverScreen">
+            <p class="gameOverText OText">Game Over O won</p>
+          </div>
+          break;
+        }
+      case Cell.Tie:
+        {
+          <div class="gameOverScreen TieText">
+            <p class="gameOverText">Game Over Tie</p>
+          </div>
+          break;
+        }
+    }
   }
-  @if (i != 0)
-  {
-    i = 0;
-  }
+  <div class="grid-container">
+    @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
+    {
+      <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
+      i++;
+      @* <p>ok</p> *@
+    }
+    @if (i != 0)
+    {
+      i = 0;
+    }
+  </div>
 </div>
 <style>
-  .grid-container {
+  .gameOverScreen {
+    position: absolute;
+    width: var(--length);
+    height: var(--length);
+    background-color: rgba(255, 255, 255, 0.388);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gameOverText {
+    font-family: monospace;
+    text-shadow: 2px 2px black;
+    z-index: 1;
+    font-size: var(--font-size);
+  }
+
+  .XText {
+    color: blue;
+  }
+
+  .OText {
+    color: red;
+  }
+
+  .TieText {
+    color: black;
+  }
+
+  :root {
     --length: min(calc(90vh), calc(90vw));
+    --font-size: calc(var(--length)/9);
+  }
+
+  .grid-container {
     width: var(--length);
     height: var(--length);
     display: grid;
@@ -79,6 +142,8 @@
     Console.WriteLine($"validating");
     if (Winner != Cell.None)
     {
+      WonBy = Winner;
+      StateHasChanged();
       Console.WriteLine($"{Winner} won");
     }
   }
