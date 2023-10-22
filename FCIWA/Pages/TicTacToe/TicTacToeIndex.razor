@@ -1,43 +1,45 @@
 @page "/TicTacToe"
-<div>
-  @if (WonBy != Cell.None)
-  {
-    switch (WonBy)
+<div class="horizontal-center-container">
+  <div class="horizontal-center-item">
+    @if (WonBy != Cell.None)
     {
-      case Cell.X:
-        {
-          <div class="gameOverScreen">
-            <p class="gameOverText XText">Game Over X won</p>
-          </div>
-          break;
-        }
-      case Cell.O:
-        {
-          <div class="gameOverScreen">
-            <p class="gameOverText OText">Game Over O won</p>
-          </div>
-          break;
-        }
-      case Cell.Tie:
-        {
-          <div class="gameOverScreen TieText">
-            <p class="gameOverText">Game Over Tie</p>
-          </div>
-          break;
-        }
+      switch (WonBy)
+      {
+        case Cell.X:
+          {
+            <div class="gameOverScreen">
+              <p class="gameOverText XText">Game Over X won</p>
+            </div>
+            break;
+          }
+        case Cell.O:
+          {
+            <div class="gameOverScreen">
+              <p class="gameOverText OText">Game Over O won</p>
+            </div>
+            break;
+          }
+        case Cell.Tie:
+          {
+            <div class="gameOverScreen TieText">
+              <p class="gameOverText">Game Over Tie</p>
+            </div>
+            break;
+          }
+      }
     }
-  }
-  <div class="grid-container">
-    @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
-    {
-      <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
-      i++;
-      @* <p>ok</p> *@
-    }
-    @if (i != 0)
-    {
-      i = 0;
-    }
+    <div class="grid-container">
+      @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
+      {
+        <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
+        i++;
+        @* <p>ok</p> *@
+      }
+      @if (i != 0)
+      {
+        i = 0;
+      }
+    </div>
   </div>
 </div>
 <style>

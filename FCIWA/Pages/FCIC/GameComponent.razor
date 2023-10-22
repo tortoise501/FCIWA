@@ -6,11 +6,11 @@
         <p class="gameOverText">Game Over, You @(Game.gameState == GameState.Won ? "won" : "lost")</p>
       </div>
     }
-    <AttemptsComoponent attempts="@attempts" />
+    <AttemptsComponent attempts="@attempts" />
     <div class="inlineDiv defaultTerminalText">
       @for (int i = 0; i < columns.Length; i++)
       {
-        <AddressesComoponent />
+        <AddressesComponent />
         <ColumnComponent Game="@Game" thisColumn="@columns[i]" RefreshGame="RefreshGame"
           ChangedSelectedElement="RefreshLogger" />
       }
@@ -20,6 +20,23 @@
 </div>
 
 <style>
+  .defaultTerminalText {
+    font-family: monospace;
+    background-color: black;
+    color: green;
+    user-select: none;
+  }
+
+  .hoveredElement {
+    background-color: green;
+    color: black;
+  }
+
+  .unhoveredElement {
+    background-color: black;
+    color: green;
+  }
+
   .gameOverScreen {
     position: absolute;
     width: var(--screen-width);
@@ -40,17 +57,17 @@
 
   .gameRoot {
     --box-width: 90vw;
-    --box-heigth: 90vh;
+    --box-height: 90vh;
     width: var(--box-width);
-    height: var(--box-heigth);
+    height: var(--box-height);
     /*idk what it is but ok*/
-    /*ratio of character widht and height (height = widht * 1.65)*/
+    /*ratio of character width and height (height = width * 1.65)*/
     --font-ratio: calc(1.8);
     /*screen ratio (columns/rows)*/
     --screen-width-height-ratio: @screenWidthHeightRatio;
-    /*screen width = 90% of screen or, to compensate for overflow, widht for 90% of height accounting for character heigth*/
-    --screen-width: min(var(--box-width), calc(var(--box-heigth) * var(--screen-width-height-ratio) / var(--font-ratio)));
-    /* screen haight according to screen ratio*/
+    /*screen width = 90% of screen or, to compensate for overflow, width for 90% of height accounting for character height*/
+    --screen-width: min(var(--box-width), calc(var(--box-height) * var(--screen-width-height-ratio) / var(--font-ratio)));
+    /* screen height according to screen ratio*/
     --screen-height: calc(calc(var(--screen-width)/var(--screen-width-height-ratio)) * var(--font-ratio));
 
     --character-width: calc(var(--screen-width)/@width);
