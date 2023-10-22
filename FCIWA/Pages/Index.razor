@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 <header class="default-div">
   <div>
     <h1>This is tortoise501's playground</h1>
@@ -20,7 +21,7 @@
         side of screen saying how many letters are in the same place as in correct word. You can also find hints. Hints
         are represented by pairs of
         opened and closed parentheses of one type in one row. Types of parenthesis are : { },[ ],( ),&lt; &gt; </p>
-      <button onclick="location.href='/FCIWA'" class="play-game-button">
+      <button @onclick="GoFT" class="play-game-button">
         Play Fallout terminal game
       </button>
     </div>
@@ -47,7 +48,7 @@
         board. From then on, player's can only place symbol in cells of small game that correspond to cell if witch
         symbol was place last move. If a small board is full, you can choose any other available small board. Player
         wins if he wins in Bigger board by occupying three small games in a row with his symbol</p>
-      <button onclick="location.href='/TicTacToe'" class="play-game-button">
+      <button @onclick="GoTTT" class="play-game-button">
         Play Super TicTacToe
       </button>
     </div>
@@ -59,6 +60,16 @@
     <p>This game was inspired by <a href="https://www.youtube.com/watch?v=_Na3a1ZrX7c">this Vsause video</a>.</p>
   </div>
 </article>
+@code {
+  public void GoFT()
+  {
+    NavigationManager.NavigateTo("/FCIWA");
+  }
+  public void GoTTT()
+  {
+    NavigationManager.NavigateTo("/TicTacToe");
+  }
+}
 
 <style>
   .default-div {
