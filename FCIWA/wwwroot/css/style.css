@@ -1,34 +1,25 @@
-.hoveredElement {
-  background-color: green;
-  color: black;
-}
-
-.unhoveredElement {
-  background-color: black;
-  color: green;
-}
-
 .inlineDiv {
   display: inline-flex;
 }
 
-.defaultTerminalText {
-  font-family: monospace;
-  background-color: black;
-  color: green;
-  user-select: none;
-}
 
 .noMargin {
   margin-right: 0px !important;
 }
 
 body {
-  background-color: rgb(218, 201, 201);
+  /* background-color: rgb(218, 201, 201); */
+  color: rgb(39, 12, 12);
 }
 
-.container {
-  position: relative;
-  display: flex;
+.horizontal-center-item {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.horizontal-center-container {
+  background-color: white;
   justify-content: center;
+  position: relative;
 }

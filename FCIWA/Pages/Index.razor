@@ -1,8 +1,190 @@
 ﻿@page "/"
-<button>
-  <a href="/FCIWA">Play Fallout terminal game</a>
-</button>
-<br>
-<button>
-  <a href="/TicTacToe">Play Super TicTacToe</a>
-</button>
+<header class="default-div">
+  <div>
+    <h1>This is tortoise501's playground</h1>
+  </div>
+</header>
+<div class="default-div">
+  <div>
+    <p>On this site you can find different projects made by me using Blazor WebAssembly</p>
+  </div>
+</div>
+<article>
+  <div class="article-head">
+    <h2>Fallout Terminal Game</h2>
+  </div>
+  <div class="inlineDiv game-preview">
+    <div class="rules">
+      <p>Rules: you have two "columns" with random symbols and words in it, you need to click correct word in one of
+        those columns. There is only one correct word. If you click wrong word you will see "log" appearing in the left
+        side of screen saying how many letters are in the same place as in correct word. You can also find hints. Hints
+        are represented by pairs of
+        opened and closed parentheses of one type in one row. Types of parenthesis are : { },[ ],( ),&lt; &gt; </p>
+      <button onclick="location.href='/FCIWA'" class="play-game-button">
+        Play Fallout terminal game
+      </button>
+    </div>
+    <div class="img-div">
+      <img alt="originalFTimg" src="Images/Index/FalloutTerminalOriginal.jpg">
+      <img alt="originalFTimg" src="Images/Index/FalloutTerminalMy.jpg">
+    </div>
+  </div>
+  <div class="description">
+    <p>This is the same game you play in Fallout(3, New Vegas, 4 or 76) when you hack terminals. You can find more
+      information about this game on <a href="https://fallout.fandom.com/wiki/Hacking">Fallout wiki</a> site.</p>
+  </div>
+</article>
+
+
+<article>
+  <div class="article-head">
+    <h2>Super TicTacToe</h2>
+  </div>
+  <div class="inlineDiv game-preview">
+    <div class="rules">
+      <p>SUPER Tic-Tac-Toe combines nine smaller Tic-Tac-Toe games into one. Player starts placing your symbol in any
+        small
+        board. From then on, player's can only place symbol in cells of small game that correspond to cell if witch
+        symbol was place last move. If a small board is full, you can choose any other available small board. Player
+        wins if he wins in Bigger board by occupying three small games in a row with his symbol</p>
+      <button onclick="location.href='/TicTacToe'" class="play-game-button">
+        Play Super TicTacToe
+      </button>
+    </div>
+    <div class="img-div">
+      <img alt="TTT1" src="Images/Index/TTT1.jpg">
+    </div>
+  </div>
+  <div class="description">
+    <p>This game was inspired by <a href="https://www.youtube.com/watch?v=_Na3a1ZrX7c">this Vsause video</a>.</p>
+  </div>
+</article>
+
+<style>
+  .default-div {
+    background-color: var(--primary);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: var(--margin1);
+  }
+
+  .default-div h1 {
+    margin: auto;
+  }
+
+  .default-div div {
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 10px;
+    display: flex;
+  }
+
+
+  :root {
+    font-family: monospace;
+    --text: rgb(0, 0, 0);
+    --background: rgb(244, 248, 251);
+    --primary: rgb(194, 118, 71);
+    --secondary: rgb(238, 235, 205);
+    --accent: rgb(180, 60, 74);
+
+    --link-text: rgb(53, 40, 40);
+    --link-hover: rgb(112, 54, 54);
+
+    --background1: rgb(228, 228, 228);
+    --margin1: 20px;
+    --margin2: 10px;
+    font-size: 25px;
+  }
+
+
+
+
+
+  .article-head {
+    background-color: var(--secondary);
+    border-radius: 10px;
+    text-align: center;
+    padding: 2px;
+    margin-bottom: var(--margin2);
+  }
+
+  article {
+    width: auto;
+    background-color: var(--primary);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: var(--margin1);
+  }
+
+  .img-div {
+    margin-left: var(--margin2);
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 10px;
+    right: 0px;
+    width: 70%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
+  article img {
+    width: 500px;
+    height: auto;
+    outline-color: var(--accent);
+    border-radius: 10px;
+    outline-style: solid;
+    outline-width: 7px;
+    margin: auto;
+  }
+
+  .game-preview {
+    width: auto;
+    border-radius: 10px;
+    margin-bottom: var(--margin2);
+    display: flex;
+    flex-direction: row;
+  }
+
+  .rules {
+    width: 30%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary);
+  }
+
+  .description {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--secondary);
+    width: auto;
+  }
+
+  .play-game-button {
+    margin-top: auto;
+    padding: 0px 10px 0px 10px;
+    margin-right: auto;
+    height: 50px;
+    color: black;
+    font-size: large;
+    border-radius: 10px;
+    background-color: var(--secondary);
+    border-style: none;
+    box-shadow: 1px 1px 3px black;
+  }
+
+  .play-game-button:hover {
+    background-color: var(--accent);
+  }
+
+  a {
+    color: var(--link-text);
+  }
+
+  a:hover {
+    color: var(--link-hover);
+  }
+</style>
