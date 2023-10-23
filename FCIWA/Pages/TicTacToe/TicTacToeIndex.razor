@@ -31,9 +31,9 @@
     <div class="grid-container">
       @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
       {
-        <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i" />
+        <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i"
+          OnClick="StateHasChanged" />
         i++;
-        @* <p>ok</p> *@
       }
       @if (i != 0)
       {
@@ -43,6 +43,10 @@
   </div>
 </div>
 <style>
+  .selectedSmallGame {
+    background-color: rgb(0, 222, 0) !important;
+  }
+
   .gameOverScreen {
     position: absolute;
     width: var(--length);

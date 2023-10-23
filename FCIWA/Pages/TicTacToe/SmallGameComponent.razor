@@ -1,4 +1,19 @@
-<div class="@defaultClass">
+@if ((SmallGrid as IGameCell).State == Cell.None && SmallGameIndex == TTTGameManager.CurrentSmallGame)
+{
+  currentClass = defaultClass + selectedSmallGameClass;
+}
+else
+{
+  if ((SmallGrid as IGameCell).State != Cell.None)
+  {
+    currentClass = defaultClass + imgClass;
+  }
+  else
+  {
+    currentClass = defaultClass;
+  }
+}
+<div class="@currentClass">
   @switch ((SmallGrid as IGameCell).State)
   {
     case Cell.None:
@@ -41,10 +56,14 @@
   [Parameter]
   public int SmallGameIndex { get; set; }
 
-  string defaultClass = "grid-container inner-grid-container";
-  string additionalClasses = " imgDiv";
+  string currentClass = defaultClass;
+  const string defaultClass = "grid-container inner-grid-container";
+  const string imgClass = " imgDiv";
+  const string selectedSmallGameClass = " selectedSmallGame";
   [Parameter]
   public EventCallback OnPlayerWinning { get; set; }
+  [Parameter]
+  public EventCallback OnClick { get; set; }
   public void ReloadOnClick()
   {
     (SmallGrid as IGameCell).OccupySelf((SmallGrid as IGameGrid).ValidateGrid());
@@ -60,13 +79,15 @@
     {
       FinishWithWinner();
     }
-    StateHasChanged();
+    RefreshSelectedSmallGame();
+  }
+  void RefreshSelectedSmallGame()
+  {
+    OnClick.InvokeAsync();
   }
   void FinishWithWinner()
   {
     TTTGameManager.filledSmallGames.Add(SmallGameIndex);
-    defaultClass += additionalClasses;
-    Console.WriteLine("yes");
     OnPlayerWinning.InvokeAsync();
   }
 }
