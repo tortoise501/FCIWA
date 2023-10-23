@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <header class="default-div">
   <div>
     <h1>This is tortoise501's playground</h1>
@@ -60,6 +61,11 @@
     <p>This game was inspired by <a href="https://www.youtube.com/watch?v=_Na3a1ZrX7c">this Vsause video</a>.</p>
   </div>
 </article>
+<hr>
+<footer>
+  <p>Useful links:<a href="https://github.com/tortoise501/tortoise501-Blazor-projects" class="fa fa-github"></a>
+  </p>
+</footer>
 @code {
   public void GoFT()
   {
@@ -72,6 +78,25 @@
 }
 
 <style>
+  .fa {
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
+
+  footer {
+    height: 100px;
+  }
+
+  hr {
+    color: var(--primary);
+  }
+
   .default-div {
     background-color: var(--primary);
     border-radius: 10px;
@@ -94,7 +119,7 @@
   :root {
     font-family: monospace;
     --text: rgb(0, 0, 0);
-    --background: rgb(244, 248, 251);
+    --background: rgb(254, 243, 236);
     --primary: rgb(194, 118, 71);
     --secondary: rgb(238, 235, 205);
     --accent: rgb(180, 60, 74);
@@ -102,12 +127,14 @@
     --link-text: rgb(53, 40, 40);
     --link-hover: rgb(112, 54, 54);
 
-    --background1: rgb(228, 228, 228);
     --margin1: 20px;
     --margin2: 10px;
     font-size: 25px;
   }
 
+  body {
+    background-color: var(--background);
+  }
 
 
 
