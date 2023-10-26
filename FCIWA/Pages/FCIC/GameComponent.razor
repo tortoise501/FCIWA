@@ -3,7 +3,8 @@
     @if (isGameFinished)
     {
       <div class="gameOverScreen">
-        <p class="gameOverText">Game Over, You @(Game.gameState == GameState.Won ? "won" : "lost")</p>
+        <p class="gameOverTerminalText gameOverText">Game Over, You @(Game.gameState == GameState.Won ? "won" : "lost")
+        </p>
       </div>
     }
     <AttemptsComponent attempts="@attempts" />
@@ -48,11 +49,10 @@
     align-items: center;
   }
 
-  .gameOverText {
+  .gameOverTerminalText {
     font-size: calc(var(--font-size) * 2.5);
     color: green;
     font-family: monospace;
-    text-shadow: 2px 2px black;
   }
 
   .gameRoot {

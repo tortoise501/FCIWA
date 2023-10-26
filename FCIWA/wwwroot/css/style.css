@@ -7,6 +7,10 @@
   margin-right: 0px !important;
 }
 
+.gameOverText {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
 body {
   /* background-color: rgb(218, 201, 201); */
   color: rgb(39, 12, 12);

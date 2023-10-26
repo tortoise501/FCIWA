@@ -17,11 +17,11 @@
   </div>
   <div class="inlineDiv game-preview">
     <div class="rules">
-      <p>Rules: you have two "columns" with random symbols and words in it, you need to click correct word in one of
-        those columns. There is only one correct word. If you click wrong word you will see "log" appearing in the left
-        side of screen saying how many letters are in the same place as in correct word. You can also find hints. Hints
-        are represented by pairs of
-        opened and closed parentheses of one type in one row. Types of parenthesis are : { },[ ],( ),&lt; &gt; </p>
+      <p>In this game, you are presented with two columns containing a mix of symbols and words. Your objective is to
+        identify the correct word from one of the columns. Be careful, as there's only one correct word hidden within
+        the options. If you click on the wrong word, a log will appear on the rigth side of the screen, indicating how
+        many letters are in the correct position compared to the actual word. To assist you, hints are represented by
+        pairs of parentheses, each enclosed within a specific type, including: { }, [ ], ( ), &lt;, and &gt;.</p>
       <button @onclick="GoFT" class="play-game-button">
         Play Fallout terminal game
       </button>
@@ -44,11 +44,10 @@
   </div>
   <div class="inlineDiv game-preview">
     <div class="rules">
-      <p>SUPER Tic-Tac-Toe combines nine smaller Tic-Tac-Toe games into one. Player starts placing your symbol in any
-        small
-        board. From then on, player's can only place symbol in cells of small game that correspond to cell if witch
-        symbol was place last move. If a small board is full, you can choose any other available small board. Player
-        wins if he wins in Bigger board by occupying three small games in a row with his symbol</p>
+      <p>SUPER Tic-Tac-Toe combines nine smaller Tic-Tac-Toe games into one. The player starts by placing their symbol
+        on any small board. From then on, players can only place their symbol in cells of the small game that correspond
+        to the cell in which the last move was made. If a small board is full, you can choose any other available small
+        board. A player wins if they win the bigger board by occupying three small games in a row with their symbol.</p>
       <button @onclick="GoTTT" class="play-game-button">
         Play Super TicTacToe
       </button>
