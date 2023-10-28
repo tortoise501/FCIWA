@@ -16,5 +16,11 @@ static class TTTGameManager
     }
     return res;
   }
+  public static void Reload()
+  {
+    currentSmallGame = -1;
+    filledSmallGames = new HashSet<int>() { 9 };
+    CurrentPlayer = Cell.X;
+  }
   public static HashSet<int> filledSmallGames = new HashSet<int>() { 9 };
 }
