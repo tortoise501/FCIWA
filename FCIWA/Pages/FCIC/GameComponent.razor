@@ -62,39 +62,31 @@
     height: var(--box-height);
     /*idk what it is but ok*/
     /*ratio of character width and height (height = width * 1.65)*/
-    --font-ratio: calc(1.8);
+  @*--font-ratio:calc(1.8);*@
     /*screen ratio (columns/rows)*/
     --screen-width-height-ratio: @screenWidthHeightRatio;
+
+
+    /*width for max height*/
+    --screen-height-related-width: calc(var(--box-height) * var(--screen-width-height-ratio) / @fontRatio);
+    /*width for max width*/
+    --screen-width-related-width: var(--box-width);
+
+
     /*screen width = 90% of screen or, to compensate for overflow, width for 90% of height accounting for character height*/
-    --screen-width: min(var(--box-width), calc(var(--box-height) * var(--screen-width-height-ratio) / var(--font-ratio)));
+    --screen-width: min(var(--screen-width-related-width), var(--screen-height-related-width));
     /* screen height according to screen ratio*/
-    --screen-height: calc(calc(var(--screen-width)/var(--screen-width-height-ratio)) * var(--font-ratio));
+    --screen-height: calc(var(--screen-width)/var(--screen-width-height-ratio) * @fontRatio);
 
     --character-width: calc(var(--screen-width)/@width);
+    /*---------------PROBLEMATIC-----------*/
     --character-height: calc(var(--screen-height)/@height);
     --padding: var(--character-width);
     --font-size: var(--character-height);
+  @*Testing*@font-size: var(--font-size);
   }
 
-  :root {
-
-    /*idk what it is but ok*/
-    /*ratio of character widht and height (height = widht * 1.65)*/
-    --font-ratio: calc(1.8);
-    /*screen ratio (columns/rows)*/
-    --screen-width-height-ratio: @screenWidthHeightRatio;
-    /*screen width = 90% of screen or, to compensate for overflow, widht for 90% of height accounting for character heigth*/
-    --screen-width: min(var(--box-width), calc(var(--box-heigth) * var(--screen-width-height-ratio) / var(--font-ratio)));
-    /* screen haight according to screen ratio*/
-    --screen-height: calc(calc(var(--screen-width)/var(--screen-width-height-ratio)) * var(--font-ratio));
-
-    --character-width: calc(var(--screen-width)/@width);
-    --character-height: calc(var(--screen-height)/@height);
-    --padding: var(--character-width);
-    --font-size: var(--character-height);
-  }
-
-  .game {
+  @*:root{/*idkwhatitisbutok*//*ratioofcharacterwidhtandheight(height=widht*1.65)*/--font-ratio:calc(1.8);/*screenratio(columns/rows)*/--screen-width-height-ratio:@screenWidthHeightRatio;/*screenwidth=90%ofscreenor,tocompensateforoverflow,widhtfor90%ofheightaccountingforcharacterheigth*/--screen-width:min(var(--box-width),calc(var(--box-heigth)*var(--screen-width-height-ratio)/var(--font-ratio)));/*screenhaightaccordingtoscreenratio*/--screen-height:calc(calc(var(--screen-width)/var(--screen-width-height-ratio))*var(--font-ratio));--character-width:calc(var(--screen-width)/@width);--character-height:calc(var(--screen-height)/@height);--padding:var(--character-width);--font-size:var(--character-height);}*@.game {
     background-color: black;
     outline-color: green;
     outline-style: solid;
@@ -117,6 +109,7 @@
   const int commonHeight = 16;
   const float lineHeight = 0.1f;
   const float height = (commonHeight + 2) * (lineHeight + 1f);
+  const float fontRatio = 1.8f;
   const float screenWidthHeightRatio = width / height;
   //attempt
   const int maxAttempts = 4;
