@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Extensions;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FCIWA;
 using System.Globalization;
