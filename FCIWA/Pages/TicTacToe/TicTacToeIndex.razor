@@ -28,21 +28,54 @@
           }
       }
     }
-    <div class="grid-container">
-      @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
-      {
-        <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i"
-          OnClick="StateHasChanged" />
-        i++;
-      }
-      @if (i != 0)
-      {
-        i = 0;
-      }
+    <div class="inlineDiv">
+      <div class="grid-container">
+        @foreach (IGameCell cell in (SuperGrid as IGameGrid).Cells)
+        {
+          <SmallGameComponent SmallGrid="@(cell as SmallGame)" OnPlayerWinning="ReloadOnWinning" SmallGameIndex="@i"
+            OnClick="StateHasChanged" />
+          i++;
+        }
+        @if (i != 0)
+        {
+          i = 0;
+        }
+      </div>
+      <div class="current-player-display">
+        <p>Current Player:</p>
+        @switch (TTTGameManager.CurrentPlayer)
+        {
+          case Cell.None:
+            {
+              <img src="Images/TicTacToe/tieSprite.png" alt="T">
+              break;
+            }
+          case Cell.X:
+            {
+              <img src="Images/TicTacToe/xSprite.png" alt="X">
+              break;
+            }
+          case Cell.O:
+            {
+              <img src="Images/TicTacToe/oSprite.png" alt="O">
+              break;
+            }
+          case Cell.Tie:
+            {
+              <img class="cellImg" src="Images/TicTacToe/tieSprite.png" alt="T">
+              break;
+            }
+        }
+      </div>
     </div>
   </div>
+
 </div>
 <style>
+  .current-player-display {
+    padding: 15px;
+  }
+
   .selectedSmallGame {
     background-color: rgb(0, 148, 222) !important;
   }
@@ -58,7 +91,7 @@
     align-items: center;
   }
 
-  @*.gameOverText{font-family:monospace;text-shadow:2px2pxblack;z-index:1;font-size:var(--font-size);}*@.XText {
+  .XText {
     color: blue;
   }
 
@@ -71,8 +104,9 @@
   }
 
   :root {
-    --length: min(calc(90vh), calc(90vw));
+    --length: min(calc(90vh), calc(80vw));
     --font-size: calc(var(--length)/9);
+    font-size: calc(var(--length)/30);
   }
 
   .grid-container {
