@@ -1,0 +1,19 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/images/*",
+      "/css/*"
+    ]
+  },
+  "routes": [
+    {
+      "route": "/FCIWA",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/TicTacToe",
+      "rewrite": "/index.html"
+    }
+  ]
+}
