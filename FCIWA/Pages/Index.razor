@@ -28,6 +28,7 @@
     </div>
     <div class="img-div">
       <img alt="originalFTimg" src="Images/Index/FalloutTerminalOriginal.jpg">
+      <div class="separator30px"></div>
       <img alt="originalFTimg" src="Images/Index/FalloutTerminalMy.jpg">
     </div>
   </div>
@@ -166,15 +167,22 @@
     flex-direction: row;
   }
 
-  article img {
-    width: 500px;
-    height: auto;
+  .img-div img {
+    object-fit: cover;
+    width: min(100%, 600px);
+    height: 320px;
     outline-color: var(--accent);
     border-radius: 10px;
     outline-style: solid;
     outline-width: 7px;
     margin: auto;
+    @*margin-right:20;*@
   }
+
+  .separator30px {
+    width: 30px;
+  }
+
 
   .game-preview {
     width: auto;
